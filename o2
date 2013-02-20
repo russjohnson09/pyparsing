@@ -1,0 +1,19 @@
+total 2780
+-rw-r--r-- 1 russ russ   37547 Feb 23  2012 01 - Zoku Sayonara Zetsubou Sensei.jp.ass
+-rw-r--r-- 1 russ russ   13836 Feb 18 08:36 1
+-rw-r--r-- 1 russ russ   13254 Feb 18 07:59 1.txt
+-rw-r--r-- 1 russ russ     713 Feb 18 21:02 extractDialogue.py
+-rw-r--r-- 1 russ russ  205591 Feb 18 21:03 extracted
+drwxr-xr-x 2 russ russ    4096 Feb 20 07:10 i
+-rw-r--r-- 1 russ russ      28 Feb 20 07:12 in
+-rw-r--r-- 1 russ russ     405 Feb 20 05:56 newline.py
+-rw-r--r-- 1 russ russ      63 Feb 20 07:03 o1
+-rw-r--r-- 1 russ russ       0 Feb 20 07:59 o2
+-rw-r--r-- 1 russ russ       0 Feb 20 07:05 o2.txt
+-rw-r--r-- 1 russ russ      77 Feb 18 08:02 README
+-rw-r--r-- 1 russ russ  115336 Feb 18 20:12 results
+-rw-r--r-- 1 russ russ    1887 Feb 20 07:47 ruby.py
+-rw-r--r-- 1 russ russ  569032 Feb 18 20:58 test
+-rw-r--r-- 1 russ russ     777 Feb 18 21:38 wc.py
+-rw-r--r-- 1 russ russ   50007 Feb 18 21:06 wordcount
+-rw-r--r-- 1 russ russ 1787625 Feb 18 21:03 zetubouresults

@@ -5,18 +5,29 @@
 from __future__ import print_function
 from sys import argv
 
+import codecs
+
 from pyparsing import *
-from subprocess import check_output
+from subprocess import *
 
 
 ruby_parser = (CharsNotIn(u"()、！…。"+unichr(32) + unichr(10)).setResultsName("word") + "(" +
               CharsNotIn("()").setResultsName("kana") +  ")")
 
 def chasen_call(file_path):
-    return check_output('chasen -i w -F "%r ()" <' + file_path,
-                shell=True).decode('utf-8')
+    with open(".temp", "w") as f1, open(file_path,'r') as f2:
+        p = Popen(['chasen', '-i', 'w', '-F', '%r ()'], stdout=f1, stdin=f2)
+        p.wait()
 
-def convert_string(string):
+def convert_file(fout):
+    with open(".temp", "r") as f1, codecs.open(fout,'a','utf-8-sig') as f2:
+        f2.flush()
+        for line in f1:
+            string = convert_string(line.decode('utf-8'))
+            f2.write(string)
+        
+
+def convert_string(string, hiragana = True, ruby = True):
     start = 0
     result = ""
     for t,s,e in ruby_parser.scanString(string):
@@ -24,13 +35,28 @@ def convert_string(string):
             result += string[start:s]
         start = e
         i,j = match(t.word,t.kana)
+        if hiragana:
+            kana = ""
+            for c in t.kana:
+                kana += unichr(ord(c)-(ord(u'ァ')-ord(u'ぁ')))
+        else:
+            kana = t.kana
+                
         if i == None:
             result += format("%s" % (t.word))
         elif i == -1:
-            result += format("%s{%s}" % (t.word,t.kana))
+            if ruby:
+                result += format("\\ruby{%s}{%s}" % (t.word,kana))
+            else:
+                result += format("%s{%s}" % (t.word,kana))
         else:
-            result += format("%s{%s}%s" % (t.word[:i],
-                        t.kana[:i],t.word[i:]))
+            if ruby:
+                result += format("\\ruby{%s}{%s}%s" % (t.word[:i],
+                                kana[:j],t.word[i:]))
+            else:
+                result += format("%s{%s}%s" %
+                        (t.word[:i],kana[:j],t.word[i:]))
+
     return result + string[start:]
 
 def match(word,kana):
@@ -42,6 +68,7 @@ def match(word,kana):
         else:
             word_kana += c
 #    print(word_kana)
+#    print(kana)
     if word_kana == kana:
         return None, None
     else:
@@ -57,9 +84,8 @@ def match2(w1,w2):
             
 
 if __name__ == "__main__":
-    string = chasen_call(argv[1])
-    string = convert_string(string)
-    print(string,end="")
+#    chasen_call(argv[1])
+    convert_file(argv[2])
 
 
 
