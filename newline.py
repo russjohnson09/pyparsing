@@ -1,6 +1,8 @@
 from __future__ import print_function
 from sys import argv
 
+
+
 def newline(file_path, seperator, num):
     with open(file_path,"r") as f:
         for line in f:
