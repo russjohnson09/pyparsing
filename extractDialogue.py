@@ -2,7 +2,7 @@ from sys import argv
 from pyparsing import *
 
 dia_parser = ( "Dialogue:" + Word(nums + ",:.") + 
-             Word(alphas).setResultsName('type_of_dia') + 
+             Word(alphas+nums).setResultsName('type_of_dia') + 
              "," + Word(alphas) + "," + Word(nums+",",exact=5)
              + Word(nums+",",exact=5) + Word(nums+",",exact=5) 
              + "," + Optional(Word(alphas+nums+"{}\\")) + restOfLine.setResultsName('dialogue') )
