@@ -26,15 +26,11 @@ def convert_string(string):
         i,j = match(t.word,t.kana)
         if i == None:
             result += format("%s" % (t.word))
-            print("%s" % (t.word), end="")
-            pass
         elif i == -1:
             result += format("%s{%s}" % (t.word,t.kana))
-            print("%s{%s}" % (t.word,t.kana), end = "\n")
         else:
-            result += format("%s{%s}%s" % (t.word[:i],t.kana[:i],t.word[i:]))
-            print("%s{%s}%s" % (t.word[:i],t.kana[:i],t.word[i:]), end="\n")
-            pass
+            result += format("%s{%s}%s" % (t.word[:i],
+                        t.kana[:i],t.word[i:]))
     return result + string[start:]
 
 def match(word,kana):
