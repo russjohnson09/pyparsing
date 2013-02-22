@@ -6,17 +6,17 @@ from operator import itemgetter
 def word_count(file_path, string):
     wc = {}
     with open(file_path,"r") as f:
+        print(string)
         for line in f:
             tup = line.split()
-#            if len(tup) < 4:
- #               continue
-            word_type = tup[3][:2]
-            print(word_type)
-            word = tup[2]
-            if wc.has_key(word) and word_type == string:
-                wc[word] += 1
-            else:
-                wc[word] = 1
+            if len(tup) > 3:
+                #two characters in unicode is 6 long
+                word_type = tup[3][:6]
+                word = tup[2]
+                if wc.has_key(word) and word_type == string:
+                    wc[word] += 1
+                elif word_type == string:
+                    wc[word] = 1
     return wc
     
 

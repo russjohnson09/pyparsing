@@ -11,7 +11,7 @@ from pyparsing import *
 from subprocess import *
 
 
-ruby_parser = (CharsNotIn(u"()、！…。"+unichr(32) + unichr(10)).setResultsName("word") + "(" +
+ruby_parser = (CharsNotIn(u"()、！…。」「"+unichr(32) + unichr(10) + unichr(11) + unichr(12) + unichr(13)).setResultsName("word") + "(" +
               CharsNotIn("()").setResultsName("kana") +  ")")
 
 def chasen_call(file_path):
@@ -27,7 +27,7 @@ def convert_file(fout):
             f2.write(string)
         
 
-def convert_string(string, hiragana = True, ruby = True):
+def convert_string(string, hiragana = True, ruby = False):
     start = 0
     result = ""
     for t,s,e in ruby_parser.scanString(string):
@@ -48,13 +48,13 @@ def convert_string(string, hiragana = True, ruby = True):
             if ruby:
                 result += format("\\ruby{%s}{%s}" % (t.word,kana))
             else:
-                result += format("%s{%s}" % (t.word,kana))
+                result += format("%s(%s)" % (t.word,kana))
         else:
             if ruby:
                 result += format("\\ruby{%s}{%s}%s" % (t.word[:i],
                                 kana[:j],t.word[i:]))
             else:
-                result += format("%s{%s}%s" %
+                result += format("%s(%s)%s" %
                         (t.word[:i],kana[:j],t.word[i:]))
 
     return result + string[start:]

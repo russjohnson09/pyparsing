@@ -1,16 +1,16 @@
 from __future__ import print_function
 from sys import argv
+import codecs
 
 
 
 def newline(file_path, seperator, num):
-    with open(file_path,"r") as f:
+    output = file_path + ".wikia"
+    with codecs.open(file_path,"r","utf-8") as f, codecs.open(output, "w", "utf-8") as fout:
         for line in f:
-            line = line.rstrip()
-            print(line,end="")
+            fout.write(line.rstrip())
             for i in range(num):
-                print(seperator,end="")
-            print(" ",end="")
+                fout.write(seperator)
     
 
 
