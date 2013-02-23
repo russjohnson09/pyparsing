@@ -9,13 +9,13 @@ dia_parser = ( "Dialogue:" + Word(nums + ",:.") +
              Word(alphas+nums).setResultsName('type_of_dia') + 
              "," + Word(alphas) + "," + Word(nums+",",exact=5)
              + Word(nums+",",exact=5) + Word(nums+",",exact=5) 
-             + "," + Optional(Word(alphas+nums+"{}\\")) + restOfLine.setResultsName('dialogue') )
+             + "," + Optional("{" + Word(alphas+nums+"\\") + "}") + restOfLine.setResultsName('dialogue') )
 
 
 
 
 def print_dialogue(file_path, encoding="utf-8", string="riwen"):
-    output = "./out/" + file_path+".out"
+    output = file_path+".out"
     if encoding != "utf-8":
         convert(file_path)
         file_path = 'temp'
